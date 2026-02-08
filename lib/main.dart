@@ -162,6 +162,19 @@ class _MyHomePageState extends State<MyHomePage> {
               // Reusable custom widget
             ),
 
+            Container(
+              child: ElevatedButton(onPressed: () => {
+                setState(() {
+                  _counter--;
+                })
+              },
+                child: const SizedBox(
+                  width: 100,
+                  height: 20,
+                  child: Text('Elevated Button'),
+                ),
+            )  ,),
+
             // ---------- Decoration + Gradient + Shadow ----------
             Container(
               decoration: BoxDecoration(
@@ -259,17 +272,6 @@ class MyWidget extends StatelessWidget {
     return Container(
       child: Text("My Widget"),
       // StatelessWidget → no internal state
-    );
-  }
-}
-
-class MyFirstWidget extends StatelessWidget {
-  const MyFirstWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text("My Widget"),
     );
   }
 }
