@@ -40,12 +40,29 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String _counterType = 'NA';
+  Color _counterColor = Colors.black;
+
   // State variable → changes trigger UI rebuild
 
   void _incrementCounter() {
     setState(() {
       _counter++;
       // setState tells Flutter: "Rebuild UI with new data"
+    });
+  }
+
+  void _incrementButtonCounter(){
+    setState(() {
+      _counter++;
+      // setState tells Flutter: "Rebuild UI with new data"
+      if (_counter % 2 == 0){
+        _counterType = 'Even';
+        _counterColor = Colors.red;
+      }else{
+        _counterType = 'Odd';
+        _counterColor = Colors.green;
+      }
     });
   }
 
@@ -95,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // ---------- Simple layout container ----------
             Container(
               margin: EdgeInsets.only(top: 10.0),
-              height: 80.0,
+              height: 60.0,
               color: Colors.grey[350],
               child: Center(
                 child: Text(
@@ -109,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // SizedBox is preferred over empty Container for spacing
 
             Container(
-              height: 80.0,
+              height: 60.0,
               color: Colors.yellow[600],
               child: Center(
                 child: Text(
@@ -121,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
             // ---------- Row + Expanded = responsive layout ----------
             Container(
-              height: 80.0,
+              height: 50.0,
               child: Row(
                 children: [
                   Expanded(
@@ -162,18 +179,30 @@ class _MyHomePageState extends State<MyHomePage> {
               // Reusable custom widget
             ),
 
-            Container(
-              child: ElevatedButton(onPressed: () => {
-                setState(() {
-                  _counter--;
-                })
-              },
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                // backgroundColor: Colors.red,
+                padding: EdgeInsets.all(15)
+              )
+            ,onPressed: _incrementButtonCounter,
+              child: const SizedBox(
+                width: 100,
+                height: 20,
+                child: Text('Elevated Button'),
+              ),
+                        ),
+            TextButton(onPressed: () => {},
                 child: const SizedBox(
                   width: 100,
                   height: 20,
-                  child: Text('Elevated Button'),
+                  child: Text('Text Button'),
                 ),
-            )  ,),
+            ),
+            OutlinedButton(onPressed: () {}, child: Text('Outlined Button')),
+
+            IconButton(onPressed: () {},
+                icon: Icon(Icons.favorite ,
+                  color: _counterColor)),
 
             // ---------- Decoration + Gradient + Shadow ----------
             Container(
@@ -228,6 +257,12 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
 
+            Container(
+              child: Center(
+                child: Text('This number is $_counterType'),
+              ),
+            ),
+
             Spacer(),
             // Pushes footer to bottom (important layout trick)
 
@@ -255,7 +290,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _incrementButtonCounter,
         // Calls setState → rebuilds UI
 
         child: Icon(Icons.add),
