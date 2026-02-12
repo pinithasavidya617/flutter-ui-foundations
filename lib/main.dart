@@ -174,10 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
             SizedBox(height: 10),
 
-            Container(
-              child: MyWidget(),
-              // Reusable custom widget
-            ),
+            GestureDetector(onTap: _incrementCounter, child: MyWidget()),
 
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -199,7 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
             ),
             OutlinedButton(onPressed: () {}, child: Text('Outlined Button')),
-
+            MyButton(onTap: _incrementButtonCounter,),
             IconButton(onPressed: () {},
                 icon: Icon(Icons.favorite ,
                   color: _counterColor)),
@@ -222,7 +219,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   end: Alignment.bottomCenter,
                 ),
               ),
-              height: 80.0,
+              height: 60.0,
               margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               child: Center(
                 child: Text(
@@ -235,7 +232,7 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(height: 10),
 
             Container(
-              height: 80.0,
+              height: 50.0,
               color: Colors.green[600],
               child: Center(
                 child: Text(
@@ -267,7 +264,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // Pushes footer to bottom (important layout trick)
 
             Container(
-              height: 80.0,
+              height: 50.0,
               color: Colors.grey[600],
               child: Center(
                 child: Text(
@@ -306,7 +303,36 @@ class MyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Text("My Widget"),
+      height: 20,
+      width: 200,
+      color: Colors.blue,
       // StatelessWidget → no internal state
+    );
+  }
+}
+class MyButton extends StatelessWidget{
+  const MyButton ({super.key , required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+
+      onTap: onTap,
+
+      onDoubleTap: () => {
+        print('On Double Tap')
+      },
+      onLongPress: () => {
+        print('On Long press')
+      },
+      child: Container(
+        child: Text("My Button"),
+        width: 80,
+        height: 30,
+        color: Colors.green,
+      ),
     );
   }
 }
