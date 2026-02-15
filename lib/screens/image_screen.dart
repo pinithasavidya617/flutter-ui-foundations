@@ -11,8 +11,20 @@ class _ImageScreenState extends State<ImageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Image.asset('assets/img/wallet.png'),
+      body: Column(
+        children: [
+          Center(
+            child: Image.asset('assets/img/wallet.png',
+            fit: BoxFit.fitWidth,),
+          ),
+          Center(
+            child: Image.network('https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
+            loadingBuilder: (context, child, loadingProgress){
+              if(loadingProgress == null) return child;
+              return Center(child: const CircularProgressIndicator(),);
+            },),
+          )
+        ],
       ),
     );
   }
